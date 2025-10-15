@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class DfsBinaryGroupFinder implements BinaryGroupFinder {
    /**
@@ -34,20 +36,21 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     @Override
     public List<Group> findConnectedGroups(int[][] image) {
 
-        int rows = image.length;
-        int cols = image[0].length;
-
         if (image == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("Cannot be null");
+        }
+        if (image.length == 0 || image[0].length == 0) {
+            return new ArrayList<>();
         }
 
-        for(int val : rows) {
-            if (val != 0) {
-                throw new IllegalArgumentException();
+        int cols = image[0].length;
+        for (int[] row : image) {
+            if (row == null) {
+                throw new NullPointerException("Row cannot be null.");
+            }
+            if (row.length != cols) {
+                throw new IllegalArgumentException("Must have the same length!");
             }
         }
-
     }
-
-
 }
