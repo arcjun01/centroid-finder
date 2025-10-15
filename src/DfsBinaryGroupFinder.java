@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -52,5 +53,32 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
                 throw new IllegalArgumentException("Must have the same length!");
             }
         }
+
+        int rows = image.length;
+        boolean[][] visited = new boolean[rows][cols];
+        List<Group> groups = new ArrayList<>();
+
+        // This will loop through the group
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                if (image[y][x] == 1 && !visited[y][x]) {
+                    // Note: Call the helper here and implement later!
+                }
+            }
+        }
+
+        // This sorts it by descending order
+        // https://www.geeksforgeeks.org/java/collections-sort-java-examples/
+        Collections.sort(groups, Collections.reverseOrder());
+        return groups;
+    }
+
+    // This helper will explore the group or each pixel
+    private Group exploredPix(int[][] image, boolean[][] visited, int startX, int startY){
+
+
+        // Check all the neighbors (up, down, left, right)
+
+        // Integer division
     }
 }
