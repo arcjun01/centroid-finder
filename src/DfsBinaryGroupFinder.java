@@ -63,6 +63,8 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             for (int x = 0; x < cols; x++) {
                 if (image[y][x] == 1 && !visited[y][x]) {
                     // Note: Call the helper here and implement later!
+                    Group group = exploredPix(image, visited, x, y);
+                    groups.add(group);
                 }
             }
         }
@@ -75,10 +77,39 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
 
     // This helper will explore the group or each pixel
     private Group exploredPix(int[][] image, boolean[][] visited, int startX, int startY){
+        Stack<int[]> connected = new Stack<>();
+        connected.push(new int[]{startX, startY});
 
+        int sumX = 0;
+        int sumY = 0;
+        int count = 0;
 
-        // Check all the neighbors (up, down, left, right)
+        while(!connected.isEmpty()){
+            int[] current = connected.pop();
+            int x = current[0];
+            int y = current[1];
 
+            if (startX < 0 || startX >= image[0].length || startY < 0 || startY >= image.length) continue;
+            if (visited[y][x]) continue;
+            if (image[y][x] == 0) continue;
+
+            visited[y][x] = true;
+            sumX += x;
+            sumY += y;
+            count++;
+
+            // Check all the neighbors (up, down, left, right)
+            connected.push(new int[]{x, y - 1});
+            connected.push(new int[]{x, y + 1});
+            connected.push(new int[]{x - 1, y});
+            connected.push(new int[]{x + 1, y});
+        } 
         // Integer division
+        int centerX = sumX / count;
+        int centerY = sumY / count;
+        
+        Coordinate centroid = new Coordinate(centerX, centerY);
+
+        return new Group(count, centroid);
     }
 }
