@@ -89,7 +89,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             int x = current[0];
             int y = current[1];
 
-            if (startX < 0 || startX >= image[0].length || startY < 0 || startY >= image.length) continue;
+            if (X < 0 || X >= image[0].length || Y < 0 || Y >= image.length) continue;
             if (visited[y][x]) continue;
             if (image[y][x] == 0) continue;
 
