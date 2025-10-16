@@ -27,7 +27,10 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     * coordinates of the pixels in the group divided by the number of pixels in that group.
     * The division should be done as INTEGER DIVISION.
     *
-    * The groups are sorted in DESCENDING order according to Group's compareTo method.
+    * The groups are sorted in DESCENDING order according to Group's compareTo method
+    * (size first, then x, then y). That is, the largest group will be first, the 
+    * smallest group will be last, and ties will be broken first by descending 
+    * y value, then descending x value.
     * 
     * @param image a rectangular 2D array containing only 1s and 0s
     * @return the found groups of connected pixels in descending order
@@ -42,6 +45,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             return new ArrayList<>();
         }
 
+        
         int cols = image[0].length;
         for (int[] row : image) {
             if (row == null) {
@@ -53,15 +57,17 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         }
 
         int rows = image.length;
+        //track visited pixels
         boolean[][] visited = new boolean[rows][cols];
         List<Group> groups = new ArrayList<>();
 
-        // This will loop through the group
+        // loop over the pixel
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
+                //start new group if pixel is white and not visited
                 if (image[y][x] == 1 && !visited[y][x]) {
                     // Note: Call the helper here and implement later!
-                    Group group = exploredPix(image, visited, x, y);
+                    Group group= exploredPix(image, visited, x, y);
                     groups.add(group);
                 }
             }
@@ -71,44 +77,60 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         // https://www.geeksforgeeks.org/java/collections-sort-java-examples/
         Collections.sort(groups, Collections.reverseOrder());
         return groups;
+
     }
 
     // This helper will explore the group or each pixel
     private Group exploredPix(int[][] image, boolean[][] visited, int startX, int startY){
-        Stack<int[]> connected = new Stack<>();
-        connected.push(new int[]{startX, startY});
 
-        int sumX = 0;
-        int sumY = 0;
-        int count = 0;
+            //store pixels coordinates
+            List<int[]> pixels= new ArrayList<>();
 
-        while(!connected.isEmpty()){
-            int[] current = connected.pop();
-            int x = current[0];
-            int y = current[1];
+            //recursive dfs function
+            dfs(image, visited, startX, startY, pixels);
 
-            if (startX < 0 || startX >= image[0].length || startY < 0 || startY >= image.length) continue;
-            if (visited[y][x]) continue;
-            if (image[y][x] == 0) continue;
+            //find centroid
+            int sumX= 0;
+            int sumY=0;
+            for(int[] pixel: pixels){
+                sumX += pixel[0];
+                sumY += pixel[1];
+            }
+            int size= pixels.size();
+            return new Group(size, sumX/size, sumY/size);
 
-            visited[y][x] = true;
-            sumX += x;
-            sumY += y;
-            count++;
-
-            // Check all the neighbors (up, down, left, right)
-            connected.push(new int[]{x, y - 1});
-            connected.push(new int[]{x, y + 1});
-            connected.push(new int[]{x - 1, y});
-            connected.push(new int[]{x + 1, y});
-        } 
+        }
         // Integer division
-        int centerX = sumX / count;
-        int centerY = sumY / count;
-        
-        Coordinate centroid = new Coordinate(centerX, centerY);
+        //dfs to visit all connected white pixel
+        private void dfs(int[][] image, boolean[][] visited, int x, int y, List<int[]>pixels ){
+            int rows = image.length;
+            int cols = image[0].length;
 
-        return new Group(count, centroid);
-    }
+            //check if pixel is out of bound
+            if(x<0|| x>=cols ||y<0 || y>=rows){
+                return;
+            }
+
+            //check if visited or not white
+            if(visited[y][x] || image[y][x] !=1){
+                return;
+            }
+
+            //mark visited
+            visited[y][x]= true;
+            //add to group
+            pixels.add(new int []{x, y});
+
+             // explore neighbors(up, down, left, right)
+             dfs(image, visited, x, y-1, pixels);
+             dfs(image, visited, x, y+1, pixels);
+             dfs(image, visited, x-1, y, pixels);
+             dfs(image, visited, x+1, y, pixels);
+             
+             
+
+
+        }
+
+    
 }
-
