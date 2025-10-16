@@ -44,7 +44,6 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             return new ArrayList<>();
         }
 
-        
         int cols = image[0].length;
         for (int[] row : image) {
             if (row == null) {
@@ -56,17 +55,15 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         }
 
         int rows = image.length;
-        //track visited pixels
         boolean[][] visited = new boolean[rows][cols];
         List<Group> groups = new ArrayList<>();
 
-        // loop over the pixel
+        // This will loop through the group
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                //start new group if pixel is white and not visited
                 if (image[y][x] == 1 && !visited[y][x]) {
                     // Note: Call the helper here and implement later!
-                    Group group= exploredPix(image, visited, x, y);
+                    Group group = exploredPix(image, visited, x, y);
                     groups.add(group);
                 }
             }
@@ -76,60 +73,43 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         // https://www.geeksforgeeks.org/java/collections-sort-java-examples/
         Collections.sort(groups, Collections.reverseOrder());
         return groups;
-
     }
 
     // This helper will explore the group or each pixel
     private Group exploredPix(int[][] image, boolean[][] visited, int startX, int startY){
+        Stack<int[]> connected = new Stack<>();
+        connected.push(new int[]{startX, startY});
 
-            //store pixels coordinates
-            List<int[]> pixels= new ArrayList<>();
+        int sumX = 0;
+        int sumY = 0;
+        int count = 0;
 
-            //recursive dfs function
-            dfs(image, visited, startX, startY, pixels);
+        while(!connected.isEmpty()){
+            int[] current = connected.pop();
+            int x = current[0];
+            int y = current[1];
 
-            //find centroid
-            int sumX= 0;
-            int sumY=0;
-            for(int[] pixel: pixels){
-                sumX += pixel[0];
-                sumY += pixel[1];
-            }
-            int size= pixels.size();
-            return new Group(size, sumX/size, sumY/size);
+            if (startX < 0 || startX >= image[0].length || startY < 0 || startY >= image.length) continue;
+            if (visited[y][x]) continue;
+            if (image[y][x] == 0) continue;
 
-        }
+            visited[y][x] = true;
+            sumX += x;
+            sumY += y;
+            count++;
+
+            // Check all the neighbors (up, down, left, right)
+            connected.push(new int[]{x, y - 1});
+            connected.push(new int[]{x, y + 1});
+            connected.push(new int[]{x - 1, y});
+            connected.push(new int[]{x + 1, y});
+        } 
         // Integer division
-        //dfs to visit all connected white pixel
-        private void dfs(int[][] image, boolean[][] visited, int x, int y, List<int[]>pixels ){
-            int rows = image.length;
-            int cols = image[0].length;
+        int centerX = sumX / count;
+        int centerY = sumY / count;
+        
+        Coordinate centroid = new Coordinate(centerX, centerY);
 
-            //check if pixel is out of bound
-            if(x<0|| x>=cols ||y<0 || y>=rows){
-                return;
-            }
-
-            //check if visited or not white
-            if(visited[y][x] || image[y][x] !=1){
-                return;
-            }
-
-            //mark visited
-            visited[y][x]= true;
-            //add to group
-            pixels.add(new int []{x, y});
-
-             // explore neighbors(up, down, left, right)
-             dfs(image, visited, x, y-1, pixels);
-             dfs(image, visited, x, y+1, pixels);
-             dfs(image, visited, x-1, y, pixels);
-             dfs(image, visited, x+1, y, pixels);
-             
-             
-
-
-        }
-
-    
+        return new Group(count, centroid);
+    }
 }
