@@ -31,3 +31,15 @@ so overall we are analyzing an image to find place that are similar to a given c
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
