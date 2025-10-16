@@ -110,5 +110,6 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
 
         return new Group(count, centroid);
     }
+    
 }
 
