@@ -107,9 +107,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         // Integer division
         int centerX = sumX / count;
         int centerY = sumY / count;
-        
-        Coordinate centroid = new Coordinate(centerX, centerY);
 
-        return new Group(count, centroid);
+        return new Group(count, new Coordinate(centerX, centerY));
     }
 }
