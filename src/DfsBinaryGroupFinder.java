@@ -1,6 +1,4 @@
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -27,7 +25,10 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
     * coordinates of the pixels in the group divided by the number of pixels in that group.
     * The division should be done as INTEGER DIVISION.
     *
-    * The groups are sorted in DESCENDING order according to Group's compareTo method.
+    * The groups are sorted in DESCENDING order according to Group's compareTo method
+    * (size first, then x, then y). That is, the largest group will be first, the 
+    * smallest group will be last, and ties will be broken first by descending 
+    * y value, then descending x value.
     * 
     * @param image a rectangular 2D array containing only 1s and 0s
     * @return the found groups of connected pixels in descending order
@@ -68,8 +69,20 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         }
 
         // This sorts it by descending order
-        // https://www.geeksforgeeks.org/java/collections-sort-java-examples/
-        Collections.sort(groups, Collections.reverseOrder());
+        for (int i = 0; i < groups.size() - 1; i++) {
+            for (int j = i + 1; j < groups.size(); j++) {
+            Group group1 = groups.get(i);
+            Group group2 = groups.get(j);
+
+                if (group2.size() > group1.size() ||
+                    (group2.size() == group1.size() && group2.centroid().y() > group1.centroid().y()) ||
+                    (group2.size() == group1.size() && group2.centroid().y() == group1.centroid().y() && group2.centroid().x() > group1.centroid().x())) {
+
+                    groups.set(i, group2);
+                    groups.set(j, group1);
+                }
+            }
+        }
         return groups;
     }
 
@@ -87,7 +100,7 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
             int x = current[0];
             int y = current[1];
 
-            if (startX < 0 || startX >= image[0].length || startY < 0 || startY >= image.length) continue;
+            if (x < 0 || x >= image[0].length || y < 0 || y >= image.length) continue;
             if (visited[y][x]) continue;
             if (image[y][x] == 0) continue;
 
@@ -105,11 +118,8 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         // Integer division
         int centerX = sumX / count;
         int centerY = sumY / count;
-        
-        Coordinate centroid = new Coordinate(centerX, centerY);
 
-        return new Group(count, centroid);
+        return new Group(count, new Coordinate(centerX, centerY));
     }
     
 }
-
