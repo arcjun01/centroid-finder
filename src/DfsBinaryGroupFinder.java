@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -70,8 +69,20 @@ public class DfsBinaryGroupFinder implements BinaryGroupFinder {
         }
 
         // This sorts it by descending order
-        // https://www.geeksforgeeks.org/java/collections-sort-java-examples/
-        Collections.sort(groups, Collections.reverseOrder());
+        for (int i = 0; i < groups.size() - 1; i++) {
+            for (int j = i + 1; j < groups.size(); j++) {
+            Group group1 = groups.get(i);
+            Group group2 = groups.get(j);
+
+                if (group2.size() > group1.size() ||
+                    (group2.size() == group1.size() && group2.centroid().y() > group1.centroid().y()) ||
+                    (group2.size() == group1.size() && group2.centroid().y() == group1.centroid().y() && group2.centroid().x() > group1.centroid().x())) {
+
+                    groups.set(i, group2);
+                    groups.set(j, group1);
+                }
+            }
+        }
         return groups;
     }
 
