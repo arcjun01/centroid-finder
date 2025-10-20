@@ -37,6 +37,13 @@ public class BinarizingImageGroupFinder implements ImageGroupFinder {
      */
     @Override
     public List<Group> findConnectedGroups(BufferedImage image) {
-        return null;
+        if (image == null) {
+            throw new IllegalArgumentException("Image cannot be null");
+        }
+        
+        int[][] binaryArray = binarizer.toBinaryArray(image);
+        List<Group> groups = groupFinder.findConnectedGroups(binaryArray);
+
+        return groups;
     }
 }
