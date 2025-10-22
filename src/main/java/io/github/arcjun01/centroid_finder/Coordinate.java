@@ -1,3 +1,4 @@
+package io.github.arcjun01.centroid_finder;
 /**
  * Represents a location in an image or array
  * 

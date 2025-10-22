@@ -31,7 +31,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.2.0</version>
         <configuration>
-          <mainClass>io.github.arcjun01.ImageSummaryApp</mainClass>
+          <mainClass>io.github.arcjun01.centroid_finder.ImageSummaryApp</mainClass>
         </configuration>
       </plugin>
     </plugins>

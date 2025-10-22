@@ -1,3 +1,4 @@
+package io.github.arcjun01.centroid_finder;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.image.BufferedImage;
