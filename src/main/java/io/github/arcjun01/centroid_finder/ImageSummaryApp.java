@@ -1,4 +1,4 @@
-package io.github.arcjun01;
+package io.github.arcjun01.centroid_finder;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.PrintWriter;
