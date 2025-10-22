@@ -1,3 +1,4 @@
+package io.github.arcjun01;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.PrintWriter;

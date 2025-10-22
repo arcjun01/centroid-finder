@@ -3,54 +3,35 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>io.github.arcjun01</groupId>
-  <artifactId>centroid-finder</artifactId>
+  <artifactId>ImageSummaryApp</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
-
-  <dependencies>
-      <!-- https://mvnrepository.com/artifact/com.orsonpdf/orsonpdf -->
-<dependency>
-    <groupId>com.orsonpdf</groupId>
-    <artifactId>orsonpdf</artifactId>
-    <version>1.9.1</version>
-</dependency>
-
-  <!-- JFreeChart for plotting -->
-    <dependency>
-      <groupId>org.jfree</groupId>
-      <artifactId>jfreechart</artifactId>
-      <version>1.5.3</version>
-    </dependency>
-    
-    <!-- JUnit Jupiter -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>5.10.0</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>
-      <!-- Surefire -->
+      <!-- Compiler plugin to set Java version -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.3</version>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
       </plugin>
-      <!-- Exec -->
+
+      <!-- Plugin to run the app from command line -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <configuration>
-          <mainClass>io.github.arcjun01.centroid-finder</mainClass>
+          <mainClass>io.github.arcjun01.ImageSummaryApp</mainClass>
         </configuration>
       </plugin>
     </plugins>
