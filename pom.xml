@@ -5,55 +5,34 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.arcjun01</groupId>
-  <artifactId>ImageSummaryApp</artifactId>
+  <artifactId>centroid-finder</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <!-- Add dependencies here -->
   <dependencies>
-    <!-- JavaCV main library -->
+    <!-- JavaCV dependency (includes OpenCV + FFmpeg) -->
     <dependency>
       <groupId>org.bytedeco</groupId>
-      <artifactId>javacv</artifactId>
+      <artifactId>javacv-platform</artifactId>
       <version>1.5.10</version>
     </dependency>
 
-    <!-- OpenCV (with native binaries for all platforms) -->
+    <!-- JUnit for tests -->
     <dependency>
-      <groupId>org.bytedeco</groupId>
-      <artifactId>opencv-platform</artifactId>
-      <version>4.10.0-1.5.10</version>
-    </dependency>
-
-    <!-- FFmpeg (with native binaries for all platforms) -->
-    <dependency>
-      <groupId>org.bytedeco</groupId>
-      <artifactId>ffmpeg-platform</artifactId>
-      <version>7.1-1.5.10</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
-  <!-- Optional: include if you want to use snapshot versions in the future -->
-  <!--
-  <repositories>
-    <repository>
-      <id>central-portal-snapshots</id>
-      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-  -->
-
   <build>
     <plugins>
-      <!-- Compiler plugin to set Java version -->
+      <!-- Compiler plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -63,13 +42,14 @@
         </configuration>
       </plugin>
 
-      <!-- Plugin to run the app from command line -->
+      <!-- Exec plugin for running Java apps -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.2.0</version>
         <configuration>
-          <mainClass>io.github.arcjun01.centroid_finder.ImageSummaryApp</mainClass>
+         <mainClass>io.github.arcjun01.centroid_finder.VideoExperiment</mainClass>
+
         </configuration>
       </plugin>
     </plugins>
