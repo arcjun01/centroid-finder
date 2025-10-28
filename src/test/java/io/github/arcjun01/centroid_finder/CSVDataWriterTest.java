@@ -37,7 +37,6 @@ public class CSVDataWriterTest {
         // Clean up (delete the temp file)
         Files.deleteIfExists(tempFile);
     }
-
     @Test
     public void testEmptyFileStillHasHeader() throws IOException {
         // Make a temporary file
