@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 
-public class VideoProcessor {
+public class VideoExperiment {
     public static void main(String[] args) {
 
         // Check that the correct number of arguments are provided
