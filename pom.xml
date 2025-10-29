@@ -32,7 +32,7 @@
 
   <build>
     <plugins>
-      <!-- Compiler plugin -->
+     <!-- Compiler plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -42,21 +42,32 @@
         </configuration>
       </plugin>
 
+<<<<<<< HEAD
       <!-- Surefire plugin (for running JUnit 5 tests) -->
+=======
+      <!-- Surefire plugin required for JUnit 5 -->
+>>>>>>> dcfeda36dd324b180d7b40759a23bfebb45268f9
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.2</version>
       </plugin>
 
+<<<<<<< HEAD
       <!-- Exec plugin (lets you run app using mvn exec:java) -->
+=======
+>>>>>>> dcfeda36dd324b180d7b40759a23bfebb45268f9
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.2.0</version>
         <configuration>
+<<<<<<< HEAD
           <mainClass>io.github.arcjun01.centroid_finder.VideoExperiment</mainClass>
         </configuration>
+=======
+          <mainClass>io.github.arcjun01.centroid_finder.VideoExperiment</mainClass>        </configuration>
+>>>>>>> dcfeda36dd324b180d7b40759a23bfebb45268f9
       </plugin>
 
       <!-- Assembly plugin (creates runnable JAR with all dependencies) -->
