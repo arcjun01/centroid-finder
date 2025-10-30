@@ -55,7 +55,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.2.0</version>
         <configuration>
-          <mainClass>io.github.arcjun01.centroid_finder.VideoExperiment</mainClass>
+          <mainClass>io.github.arcjun01.centroid_finder.VideoProcessor</mainClass>
         </configuration>
       </plugin>
 
@@ -68,7 +68,7 @@
           <archive>
             <manifest>
               <!-- Your program’s main class -->
-              <mainClass>io.github.arcjun01.centroid_finder.VideoExperiment</mainClass>
+              <mainClass>io.github.arcjun01.centroid_finder.VideoProcessor</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
