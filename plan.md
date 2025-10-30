@@ -37,3 +37,10 @@ CSVDataWriter
 
 ## Project Architecture Google Doc
 https://docs.google.com/document/d/1AbezGm-PsojE1OIQJpomCgaGNgs9gjjkmxQHXTS3wn8/edit?tab=t.0
+
+## Final Verification
+We validated that the salamander tracker works by:
+
+-Watching the CSV output values change as the salamander moves.
+-Ensuring the centroid coordinates align with visible movement.
+-Running multiple tests with different lighting conditions and threshold values.
